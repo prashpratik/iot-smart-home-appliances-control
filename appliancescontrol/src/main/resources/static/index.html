@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+<script src="./js/jquery-3.4.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<link rel="shortcut icon" href="./img/icon.png"/>
+<title>Smart Home Appliances Control</title>
+</head>
+<body>
+	<div class="container-fluid py-2 px-3 bg-primary text-light border-bottom shadow-sm" >
+		<div class="row">
+			<div class="col-md-1">
+				<img src="./img/icon.png" alt="Iot Icon" width="64">
+			</div>
+			<div class="col-md-9 my-2">
+				<h2>Smart Home Appliances Control</h2>
+			</div>
+			<div class="col-md-2 my-2 text-right">
+				<img src="./img/frauaslogo.png" alt="FRAUAS Logo" width="105">
+			</div>
+		</div>	
+	</div>
+	<div class="container-fluid px-3 bg-white text-Dark border-bottom shadow-sm">
+		<div class="my-2">
+				<h4>Dashboard</h4>
+		</div>	
+	</div>
+	<div class="container-fluid py-1 my-1 border-bottom shadow-sm" style="background-image: url('./img/bg.png');background-size: cover;">
+		<div class="container-fluid my-1">
+			<div class="row">
+			  <div class="col-lg-3 my-2">
+				<div class="card shadow-sm">
+					<h5 class="card-title my-1 text-center">Room Temperature</h5>
+					<div class="card-body">			   
+					   <h1 id="h1" class="card-text text-center font-weight-light">NA</h1>
+					   <p id="p1" class="card-text text-center"></p>		   
+					</div>
+				</div>	  	
+			  </div>
+			  <div class="col-lg-3 my-2">
+				<div class="card shadow-sm">
+					<h5 class="card-title my-1 text-center">Luminosity</h5>
+					<div class="card-body">			   
+					   <h1 id="h2" class="card-text text-center font-weight-light">NA</h1>
+					   <p id="p2" class="card-text text-center"></p>		   
+					</div>
+				</div>	  	
+			  </div>
+			  <div class="col-lg-3 my-2">
+				<div class="card shadow-sm">
+					<h5 class="card-title my-1 text-center">Location from Home</h5>
+					<div class="card-body">			   
+					   <h1 id="h3" class="card-text text-center font-weight-light">NA</h1>
+					   <p id="p3" class="card-text text-center"></p>			   
+					</div>
+				</div>	  	
+			  </div>
+			  <div class="col-lg-3 my-2">
+				<div class="card shadow-sm">
+					<h5 class="card-title my-1 text-center">Robot Position</h5>
+					<div class="card-body">	
+						<div class="text-center">
+							<svg width="170" height="80">
+  								<rect x="5" y="5" rx="2" ry="2" width="160" height="70" style="fill:rgb(0, 200, 0, 0.2);stroke:rgb(0, 200, 0);stroke-width:2;" />
+  								<circle id="circle" cx="50" cy="50" r="5" stroke="white" stroke-width="1" fill="blue" opacity="0.6"/>
+							</svg>
+				    	</div>									   
+					</div>
+				</div>	  	
+			  </div>
+			</div>
+	    </div>
+		<div class="container-fluid my-1">
+			<div class="row">
+			  <div class="col-lg-3 my-2">
+			  	<div class="card shadow-sm">
+			  	  <h5 class="card-title my-1 text-center">Heater</h5>			 
+				  <div class="card-body">
+				 	<div class="text-center">
+				 		<img id="imgHeater" src="./img/heaterOff.png" alt="Heater Image" height="70">
+				    </div>			   
+				    <div>
+					   	<span>Heater Status :</span>
+					   	<span id="s1"></span>
+				    </div>	
+				    <hr>		   
+				    <label for="range1">Heating Power</label> 			   
+				    <div class="d-flex justify-content-center">			   	   
+						  <span class="mr-2 text-primary">OFF</span>				   
+						  <input id="range1" type="range" value="0" class="custom-range" name="points1" onchange="setTemperature()">
+						  <span class="ml-2 text-primary">FULL</span>
+				    </div>		   
+				    <hr>
+				    <div class="custom-control custom-switch">
+						 <input id="switch1" type="checkbox" class="custom-control-input" onclick="setAutoTemperature()">
+						 <label class="custom-control-label" for="switch1">Automatic Control Mode</label>
+				    </div>			   
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-lg-3 my-2">
+			  	<div class="card shadow-sm">
+			  	  <h5 class="card-title my-1 text-center">Blinds</h5>			 
+				  <div class="card-body">
+				 	<div class="text-center">
+				 		<img id="imgBlinds" src="./img/blindsDown.png" alt="Blinds Image" height="68">
+				    </div>			   
+				    <div>
+					   	<span>Blinds Status :</span>
+					   	<span id="s2"></span>
+				    </div>	
+				    <hr>	
+				    <p>Blinds Switch</p> 		   
+				    <div class="custom-control custom-switch">	
+				    	 <input id="switch2" type="checkbox" class="custom-control-input" onclick="setBlindsStatus()">
+						 <label class="custom-control-label" for="switch2">UP/DOWN</label>
+				    </div>		   
+				    <hr>
+				    <div class="custom-control custom-switch">
+						 <input id="switch3" type="checkbox" class="custom-control-input" onclick="setAutoBlinds()">
+						 <label class="custom-control-label" for="switch3">Automatic Control Mode</label>
+				    </div>			   
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-lg-3 my-2">
+			  	<div class="card shadow-sm">
+			  	  <h5 class="card-title my-1 text-center">Lamp</h5>			 
+				  <div class="card-body">
+				 	<div class="text-center">
+				 		<img id="imgLamp" src="./img/lampOff.png" alt="Lamp Image" height="68">
+				    </div>			   
+				    <div>
+					   	<span>Lamp Status :</span>
+					   	<span id="s3"></span>
+				    </div>	
+				    <hr>	
+				    <p>Lamp Switch</p> 		   
+				    <div class="custom-control custom-switch">	
+				    	 <input id="switch4" type="checkbox" class="custom-control-input" onclick="setLampStatus()">
+						 <label class="custom-control-label" for="switch4">ON/OFF</label>
+				    </div>		   
+				    <hr>
+				    <div class="custom-control custom-switch">
+						 <input id="switch5" type="checkbox" class="custom-control-input" onclick="setAutoLamp()">
+						 <label class="custom-control-label" for="switch5">Automatic Control Mode</label>
+				    </div>			   
+				  </div>
+				</div>
+			  </div>
+			  <div class="col-lg-3 my-2">
+			  	<div class="card shadow-sm">
+			  	  <h5 class="card-title my-1 text-center">Robot Vacuum Cleaner</h5>			 
+				  <div class="card-body">
+				 	<div class="text-center">
+				 		<img id="imgRobot" src="./img/robotOff.png" alt="Robot Image" height="60">
+				    </div>	
+				    <div>
+					   	<span>Robot Status :</span>
+					   	<span id="s4"></span>
+				    </div>
+				    <hr>	
+				    <p>Robot Switch</p>
+				    <div class="custom-control custom-switch">	
+				    	 <input id="switch6" type="checkbox" class="custom-control-input" onclick="setRobotStatus()">
+						 <label class="custom-control-label" for="switch6">ON/OFF</label>
+				    </div>		   
+				    <hr>
+				    <div class="text-center">
+					    <div class="btn-group btn-group-sm">
+  							<button id="leftbutton" type="button" class="btn" onclick="setRobotDirection('left')"><img src="./img/left.png" alt="Left Arrow Image" height="20"></button>
+  							<button id="forwardbutton" type="button" class="btn" onclick="setRobotDirection('forward')"><img src="./img/up.png" alt="Up Arrow Image" height="20"></button>
+  							<button id="backwardbutton" type="button" class="btn" onclick="setRobotDirection('backward')"><img src="./img/down.png" alt="Down Arrow Image" height="20"></button>
+  							<button id="rightbutton" type="button" class="btn" onclick="setRobotDirection('right')"><img src="./img/right.png" alt="Right Arrow Image" height="20"></button>
+						</div>
+					</div> 			    	   
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</div>
+		<div class="container-fluid my-3">
+			<div class="my-2">
+				<p class="font-weight-bold text-right">Data updated at: <span id="s5"></span></p>	
+			</div>
+		</div>				
+	</div>	
+	<div class="container-fluid p-1 bg-light text-dark">
+		<div class="my-2">
+			<p class="text-center">Frankfurt University of Applied Sciences, Copyright &copy; 2020</p>	
+		</div>		
+	</div>
+
+<script>
+
+$(document).ready(function() {
+	onLoadStatus();
+	viewAllData();
+	interval = setInterval(viewAllData,3000);
+});
+
+function onLoadStatus(){
+	
+	$(document).ready(function() {
+	    $.ajax({
+	        type: "GET",
+	        url: "/getAllData",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        success: function (xmlData) {                   
+	            console.log(xmlData);
+	            
+	            if($(xmlData).find("AutomaticHeaterMode").text()=="true"){
+	            	$("#range1").prop("disabled", true);
+		            $("#switch1").prop("checked", true);		            
+	            }
+	            else if($(xmlData).find("AutomaticHeaterMode").text()=="false"){
+		            $("#range1").prop("disabled", false);
+		            $("#switch1").prop("checked", false);
+		            setTemperature();
+	            }	
+	            
+	            if($(xmlData).find("AutomaticBlindsMode").text()=="true"){
+	            	$("#switch2").prop("disabled", true);
+		            $("#switch3").prop("checked", true);		            
+	            }
+	            else if($(xmlData).find("AutomaticBlindsMode").text()=="false"){
+		            $("#switch2").prop("disabled", false);
+		            $("#switch3").prop("checked", false);
+		            setBlindsStatus();
+	            }
+	            
+	            if($(xmlData).find("AutomaticLampMode").text()=="true"){
+	            	$("#switch4").prop("disabled", true);
+		            $("#switch5").prop("checked", true);
+	            }
+	            else if($(xmlData).find("AutomaticLampMode").text()=="false"){
+	            	$("#switch4").prop("disabled", false);
+		            $("#switch5").prop("checked", false);
+		            setLampStatus();
+	            }
+	            
+	            setRobotStatus();
+	        },
+	        error: function (xhr) {
+	        	clearInterval(interval);
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function viewAllData()
+{
+	$(document).ready(function() {
+	    $.ajax({
+	        type: "GET",
+	        url: "/getAllData",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        success: function (xmlData) {                   
+	            console.log(xmlData);       
+	            
+	            $("#h1").text($(xmlData).find("Temperature").text() + "\u00B0C");	            
+	            if($(xmlData).find("Temperature").text() <= 10)
+	           	{
+	            	$("#p1").css('color', 'green');
+	            	$("#p1").text("Cold");
+	           	}
+	            else if($(xmlData).find("Temperature").text() > 10)
+	           	{
+	            	$("#p1").css('color', 'red');
+	            	$("#p1").text("Warm");
+	           	}	            
+	            
+	            $("#h2").text($(xmlData).find("Luminosity").text() + "%");	            
+	            if($(xmlData).find("Luminosity").text() <= 50)
+	           	{
+	            	$("#p2").css('color', 'green');
+	            	$("#p2").text("Night");
+	           	}
+	            else if($(xmlData).find("Luminosity").text() > 50)
+	           	{
+	            	$("#p2").css('color', 'red');
+	            	$("#p2").text("Day");
+	           	}	
+	            
+	            $("#h3").text($(xmlData).find("Location").text() + "m");
+	            if($(xmlData).find("Location").text() <= 50)
+	           	{
+	            	$("#p3").css('color', 'green');
+	            	$("#p3").text("Nearby Home");
+	           	}
+	            else if($(xmlData).find("Location").text() > 50)
+	           	{
+	            	$("#p3").css('color', 'red');
+	            	$("#p3").text("Away from Home");
+	           	}
+	            
+	            var x = $(xmlData).find("RobotPosition").text().split(",")[0];
+	            var y = $(xmlData).find("RobotPosition").text().split(",")[1];
+	            var circle = document.getElementById("circle");
+    			circle.setAttributeNS(null, "cx", parseInt(x)+5);
+    			circle.setAttributeNS(null, "cy", parseInt(y)+5);
+	            
+	            $("#s1").text($(xmlData).find("HeaterStatus").text());
+	            if($(xmlData).find("HeaterStatus").text()=="ON")
+	           	{
+	            	$("#s1").css('color', 'green');
+	            	$("#imgHeater").attr("src","./img/heaterOn.png");
+	           	}
+	            else if($(xmlData).find("HeaterStatus").text()=="OFF")
+	           	{
+	            	$("#s1").css('color', 'red');
+	            	$("#imgHeater").attr("src","./img/heaterOff.png");
+	           	}
+	            
+	            $("#s2").text($(xmlData).find("BlindsStatus").text());
+	            if($(xmlData).find("BlindsStatus").text()=="UP")
+	           	{
+	            	$("#s2").css('color', 'green');
+	            	$("#imgBlinds").attr("src","./img/blindsUp.png");
+	           	}
+	            else if($(xmlData).find("BlindsStatus").text()=="DOWN")
+	           	{
+	            	$("#s2").css('color', 'red');
+	            	$("#imgBlinds").attr("src","./img/blindsDown.png");
+	           	}
+	            
+	            $("#s3").text($(xmlData).find("LampStatus").text());
+	            if($(xmlData).find("LampStatus").text()=="ON")
+	           	{
+	            	$("#s3").css('color', 'green');
+	            	$("#imgLamp").attr("src","./img/lampOn.png");
+	           	}
+	            else if($(xmlData).find("LampStatus").text()=="OFF")
+	           	{
+	            	$("#s3").css('color', 'red');
+	            	$("#imgLamp").attr("src","./img/lampOff.png");
+	           	}
+	            
+	            $("#s4").text($(xmlData).find("RobotStatus").text());
+	            if($(xmlData).find("RobotStatus").text()=="ON")
+	           	{
+	            	$("#s4").css('color', 'green');
+	            	$("#imgRobot").attr("src","./img/robotOn.png");
+	           	}
+	            else if($(xmlData).find("RobotStatus").text()=="OFF")
+	           	{
+	            	$("#s4").css('color', 'red');
+	            	$("#imgRobot").attr("src","./img/robotOff.png");
+	           	}
+	            
+	            $("#s5").text($(xmlData).find("Timestamp").text());
+	        },
+	        error: function (xhr) {
+	        	clearInterval(interval);
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setTemperature() {
+var addData = "<Temperature>" + $("#range1").val() + "</Temperature>";
+$(document).ready(function () {
+    $.ajax({
+        type: "POST",
+        url: "/setTemperature",
+        contentType: "application/xml",
+        dataType: "xml",
+        data: addData,
+        success: function () {
+        	console.log("Success");
+            },
+        error: function (xhr) {
+        	alert("Server Error\nReason: " + xhr.responseText);
+        }
+    });
+});
+}
+
+function setAutoTemperature() {
+	
+	var addData;
+	if($("#switch1").prop("checked") == true)
+	{
+		$("#range1").prop("disabled", true);
+		addData = "<AutomateHeater>true</AutomateHeater>";
+	}
+	else if($("#switch1").prop("checked") == false)
+	{
+		$("#range1").prop("disabled", false);
+		addData = "<AutomateHeater>false</AutomateHeater>";
+		setTemperature();
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setAutoTemperature",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setBlindsStatus() {
+	var addData;
+	if($("#switch2").prop("checked") == true)
+	{
+		addData = "<BlindsStatus>UP</BlindsStatus>";
+	}
+	else if($("#switch2").prop("checked") == false)
+	{
+		addData = "<BlindsStatus>DOWN</BlindsStatus>";
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setBlindsStatus",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+	
+function setAutoBlinds() {
+	
+	var addData;
+	if($("#switch3").prop("checked") == true)
+	{
+		$("#switch2").prop("disabled", true);
+		addData = "<AutomateBlinds>true</AutomateBlinds>";
+	}
+	else if($("#switch3").prop("checked") == false)
+	{
+		$("#switch2").prop("disabled", false);
+		addData = "<AutomateBlinds>false</AutomateBlinds>";
+		setBlindsStatus();
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setAutoBlinds",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setLampStatus() {
+	var addData;
+	if($("#switch4").prop("checked") == true)
+	{
+		addData = "<LampStatus>ON</LampStatus>";
+	}
+	else if($("#switch4").prop("checked") == false)
+	{
+		addData = "<LampStatus>OFF</LampStatus>";
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setLampStatus",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setAutoLamp() {
+	
+	var addData;
+	if($("#switch5").prop("checked") == true)
+	{
+		$("#switch4").prop("disabled", true);
+		addData = "<AutomateLamp>true</AutomateLamp>";
+	}
+	else if($("#switch5").prop("checked") == false)
+	{
+		$("#switch4").prop("disabled", false);
+		addData = "<AutomateLamp>false</AutomateLamp>";
+		setLampStatus();
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setAutoLamp",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setRobotStatus() {
+	var addData;
+	if($("#switch6").prop("checked") == true)
+	{
+		addData = "<RobotStatus>ON</RobotStatus>";
+	}
+	else if($("#switch6").prop("checked") == false)
+	{
+		addData = "<RobotStatus>OFF</RobotStatus>";
+	}
+	
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setRobotStatus",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+function setRobotDirection(direction) {
+	var addData = "<RobotDirection>" + direction + "</RobotDirection>";
+	$(document).ready(function () {
+	    $.ajax({
+	        type: "POST",
+	        url: "/setRobotDirection",
+	        contentType: "application/xml",
+	        dataType: "xml",
+	        data: addData,
+	        success: function () {
+	        	console.log("Success");
+	            },
+	        error: function (xhr) {
+	        	alert("Server Error\nReason: " + xhr.responseText);
+	        }
+	    });
+	});
+}
+
+</script>
+</body>
+</html>
